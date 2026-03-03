@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold — A Guide for Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0D080;
+      --gold-pale: #FDF8EC;
+      --dark: #1A1612;
+      --text: #3D3530;
+      --muted: #8A7E75;
+      --card-bg: #FFFFFF;
+      --border: #EDE8DF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gold-pale);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--dark);
+      color: white;
+      padding: 80px 24px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.25) 0%, transparent 70%);
+    }
+    .hero-coin {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      position: relative;
+    }
+    .hero h1 span { color: var(--gold-light); }
+    .hero p {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+    .hero-note {
+      margin-top: 32px;
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      position: relative;
+    }
+
+    /* NAV */
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      justify-content: center;
+    }
+    nav a {
+      display: block;
+      padding: 16px 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* LAYOUT */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    p { margin-bottom: 16px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+
+    /* CALLOUT */
+    .callout {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 0.95rem;
+    }
+    .callout strong { color: var(--dark); }
+
+    /* CARDS */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .card p { font-size: 0.875rem; color: var(--muted); margin: 0; }
+
+    /* PORTFOLIO VIZ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 28px 0;
+    }
+    @media (max-width: 560px) { .portfolio-grid { grid-template-columns: 1fr; } }
+
+    .portfolio-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .portfolio-card.highlight {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, #FFFDF5, #FDF8EC);
+    }
+    .portfolio-card h3 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .portfolio-card .pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .portfolio-card.highlight .pct { color: var(--gold); }
+    .portfolio-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+    .bar-wrap { margin: 28px 0; }
+    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .bar-label { font-size: 0.85rem; font-weight: 500; color: var(--text); width: 80px; flex-shrink: 0; }
+    .bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 10px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    .bar-pct { font-size: 0.8rem; color: var(--muted); width: 36px; text-align: right; }
+
+    /* PRICE VIZ */
+    .price-card {
+      background: var(--dark);
+      color: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin: 28px 0;
+      text-align: center;
+    }
+    .price-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .price-card .price { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold-light); font-weight: 700; }
+    .price-card .sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
+    .price-card a { color: var(--gold-light); }
+
+    /* TIMELINE */
+    .timeline { margin: 28px 0; }
+    .timeline-item { display: flex; gap: 16px; margin-bottom: 24px; }
+    .timeline-dot { flex-shrink: 0; width: 36px; height: 36px; background: var(--gold-pale); border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-top: 2px; }
+    .timeline-body h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+    .timeline-body p { font-size: 0.875rem; color: var(--muted); margin: 0; }
+
+    /* HOW TO BUY */
+    .buy-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 28px 0; }
+    .buy-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .buy-card .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .tag-easy { background: #E8F5E9; color: #2E7D32; }
+    .tag-physical { background: #FFF8E1; color: #F57F17; }
+    .tag-advanced { background: #EDE7F6; color: #4527A0; }
+    .buy-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+    .buy-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8rem;
+    }
+    footer span { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      section { padding: 48px 0; }
+      nav a { padding: 14px 14px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-coin">🪙</span>
+  <h1>Understanding <span>Gold</span><br>as an Investment</h1>
+  <p>A plain-English guide — no finance degree required.</p>
+  <div class="hero-note">Made for us, by Gabe 💛</div>
+</div>
+
+<nav>
+  <a href="#what-is-gold">What is it?</a>
+  <a href="#the-price">The Price</a>
+  <a href="#why-it-matters">Why It Matters</a>
+  <a href="#our-portfolio">Our Portfolio</a>
+  <a href="#how-to-buy">How to Buy</a>
+</nav>
+
+<!-- WHAT IS GOLD -->
+<section id="what-is-gold">
+  <div class="container">
+    <span class="section-label">Chapter 1</span>
+    <h2>What is gold, exactly?</h2>
+
+    <p>Gold is a metal — but it's also one of the oldest forms of money in human history. For thousands of years, civilizations used gold to trade, pay soldiers, and store wealth. Kings hoarded it. Empires were built on it.</p>
+
+    <p>Today, gold doesn't back our currency the way it once did. But it's still treated as a store of value — something people trust to hold its worth over time, especially when other things (like stocks, or even cash) are shaky.</p>
+
+    <div class="callout">
+      <strong>The key idea:</strong> Gold is valuable because people believe it's valuable — and they've believed that for 5,000 years. That kind of trust is surprisingly durable.
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">🏛️</span>
+        <h3>Ancient money</h3>
+        <p>Used as currency since at least 600 BC. The Roman Empire paid its soldiers in gold coins.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔬</span>
+        <h3>Chemically special</h3>
+        <p>Gold doesn't rust, tarnish, or corrode. A gold coin buried for 2,000 years still looks like gold.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚖️</span>
+        <h3>Finite supply</h3>
+        <p>All the gold ever mined would fill about 3.5 Olympic swimming pools. You can't just print more.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌍</span>
+        <h3>Global demand</h3>
+        <p>Jewelry, electronics, central bank reserves — gold has real-world demand that doesn't disappear.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PRICE -->
+<section id="the-price">
+  <div class="container">
+    <span class="section-label">Chapter 2</span>
+    <h2>Yes — gold has a price. And it changes every day.</h2>
+
+    <p>Just like stocks, gold has a live market price that fluctuates constantly. It's quoted in US dollars per troy ounce (about 31 grams). Right now, one ounce of gold is worth roughly:</p>
+
+    <div class="price-card">
+      <div class="label">Gold spot price (approx.)</div>
+      <div class="price">~$2,900 <small style="font-size:1.2rem">/ oz</small></div>
+      <div class="sub">Check the live price at <a href="https://www.kitco.com" target="_blank">kitco.com</a> or Google "gold price"</div>
+    </div>
+
+    <p>That price moves based on supply and demand — just like a house, a stock, or a loaf of bread. Here's what pushes it up or down:</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">📈</div>
+        <div class="timeline-body">
+          <h4>Fear &amp; uncertainty push it up</h4>
+          <p>When people are worried about the economy, inflation, or geopolitical instability, they flee to gold. It's the "safe haven" asset.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">💵</div>
+        <div class="timeline-body">
+          <h4>A weak dollar pushes it up</h4>
+          <p>Gold is priced in dollars. When the dollar weakens, gold gets more expensive in dollar terms — so its price rises.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🏦</div>
+        <div class="timeline-body">
+          <h4>Central bank buying pushes it up</h4>
+          <p>Countries like China, Russia, and India have been buying gold aggressively to reduce their dependence on US dollars.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">📉</div>
+        <div class="timeline-body">
+          <h4>High interest rates can push it down</h4>
+          <p>Gold doesn't pay interest or dividends. When interest rates are high, safe bonds become more attractive, reducing gold's appeal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Perspective:</strong> In 2000, gold was ~$280/oz. In 2024, it hit $2,700+. That's nearly a 10x increase over 24 years — better than a savings account, better than most bonds.
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section id="why-it-matters">
+  <div class="container">
+    <span class="section-label">Chapter 3</span>
+    <h2>Why gold matters for our situation</h2>
+
+    <p>We have a solid base — two properties and some stocks. But our money is concentrated in assets that tend to move together. When the economy struggles, house prices can fall <em>and</em> stocks can fall at the same time.</p>
+
+    <p>Gold often does the opposite — it tends to rise when stocks fall and when inflation is high. Adding it to a portfolio is like adding a counterweight.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">🛡️</span>
+        <h3>Inflation hedge</h3>
+        <p>When the cost of everything goes up, the purchasing power of cash goes down. Gold tends to hold its value or rise during inflationary periods.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">↔️</span>
+        <h3>Low correlation</h3>
+        <p>Gold doesn't usually move in sync with stocks or property. When they zig, gold can zag — smoothing out the overall portfolio.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔒</span>
+        <h3>No counterparty risk</h3>
+        <p>Physical gold isn't someone else's debt or promise. A stock can go to zero. A bar of gold can't go bankrupt.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌐</span>
+        <h3>Universally liquid</h3>
+        <p>You can sell gold anywhere in the world. Unlike a house, you don't need months and an estate agent to convert it to cash.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR PORTFOLIO -->
+<section id="our-portfolio">
+  <div class="container">
+    <span class="section-label">Chapter 4</span>
+    <h2>Where we stand — and where gold fits</h2>
+
+    <p>Here's how our wealth is currently split:</p>
+
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Property</span>
+        <div class="bar-track"><div class="bar-fill" style="width:70%;background:#5E7CE2;"></div></div>
+        <span class="bar-pct">70%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Stocks</span>
+        <div class="bar-track"><div class="bar-fill" style="width:17%;background:#4CAF82;"></div></div>
+        <span class="bar-pct">17%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Cash</span>
+        <div class="bar-track"><div class="bar-fill" style="width:15%;background:#A8A29E;"></div></div>
+        <span class="bar-pct">15%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label" style="color:var(--gold);">Gold</span>
+        <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--gold);"></div></div>
+        <span class="bar-pct" style="color:var(--gold);">0%</span>
+      </div>
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <h3>Property</h3>
+        <div class="pct">70%</div>
+        <p>Two houses. Great long-term, but illiquid and can drop in a recession.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Stocks</h3>
+        <div class="pct">17%</div>
+        <p>Growth potential, but volatile — and correlated with property in downturns.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Cash</h3>
+        <div class="pct">15%</div>
+        <p>Safe and liquid, but loses value to inflation over time.</p>
+      </div>
+      <div class="portfolio-card highlight">
+        <h3>Gold — potential addition</h3>
+        <div class="pct">?%</div>
+        <p>The missing piece — a hedge that moves differently from everything else we own.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Common guidance:</strong> Many financial advisors suggest 5–15% of a portfolio in gold as a diversifier. Given we're heavy in property, even a small gold allocation could meaningfully reduce our overall risk.
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BUY -->
+<section id="how-to-buy">
+  <div class="container">
+    <span class="section-label">Chapter 5</span>
+    <h2>How do you actually buy gold?</h2>
+
+    <p>There are a few ways — each with trade-offs between simplicity, cost, and how "real" you want it to feel.</p>
+
+    <div class="buy-options">
+      <div class="buy-card">
+        <div class="tag tag-easy">Easiest</div>
+        <h3>Gold ETF</h3>
+        <p>Buy a fund (like <strong>GLD</strong> or <strong>IAU</strong>) through any brokerage account. Tracks the gold price. No storage headaches. Most people start here.</p>
+      </div>
+      <div class="buy-card">
+        <div class="tag tag-physical">Physical</div>
+        <h3>Gold coins or bars</h3>
+        <p>Buy actual gold from a dealer (Royal Mint, APMEX, etc.). You own the metal outright. Need a safe or vault storage. Feels more real.</p>
+      </div>
+      <div class="buy-card">
+        <div class="tag tag-easy">Simple</div>
+        <h3>Gold savings account</h3>
+        <p>Services like <strong>BullionVault</strong> or <strong>The Royal Mint</strong> let you hold allocated gold online. Easy entry, professional storage.</p>
+      </div>
+      <div class="buy-card">
+        <div class="tag tag-advanced">Advanced</div>
+        <h3>Gold mining stocks</h3>
+        <p>Buy shares in gold mining companies. Amplified exposure to gold prices — but also company risk. More volatile.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Where to start:</strong> For simplicity, a gold ETF through your existing brokerage is the lowest-friction first step. You can always add physical gold later once you're comfortable with the asset.
+    </div>
+
+    <p>Whatever we decide, the goal isn't to get rich from gold — it's to protect what we've already built.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Made with 💛 &nbsp;·&nbsp; <span>Gold</span> explained simply &nbsp;·&nbsp; 2025</p>
+  <p style="margin-top:8px;">Not financial advice — just us figuring it out together.</p>
+</footer>
+
+</body>
+</html>
